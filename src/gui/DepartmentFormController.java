@@ -9,9 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import model.entities.Department;
 
 public class DepartmentFormController implements Initializable{
 
+	private Department entity;
+	
 	@FXML
 	private TextField txtid;
 	
@@ -37,6 +40,11 @@ public class DepartmentFormController implements Initializable{
 		System.out.println("onBtCancelAction");
 	}
 	
+	public void setDepartment(Department entity) {
+		this.entity = entity;
+	}
+	
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {		
 		initializeNodes();
@@ -45,6 +53,14 @@ public class DepartmentFormController implements Initializable{
 	private void initializeNodes() {
 		Constraints.setTextFieldInteger(txtid);
 		Constraints.setTextFieldMaxLength(txtName, 30);
+	}
+
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("entity was null");
+		}
+		txtid.setText(String.valueOf(entity.getId()));
+		txtName.setText(entity.getName());
 	}
 
 }
